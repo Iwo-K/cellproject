@@ -1,0 +1,9 @@
+*.html
+*.pdf
+__pycache__
+*.DS_Store
+.ipynb_checkpoints
+data
+old/
+various_notebooks/
+*egg-info

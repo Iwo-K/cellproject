@@ -1,0 +1,29 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "cellproject"
+author = "Iwo Kucinski"
+author-email = "idk25@cam.ac.uk"
+home-page = "https://github.com/Iwo-K/cellproject"
+requires-python = ">=3.7"
+requires = [
+    "anndata>=0.7.4",
+    "scanpy>=1.7.2",
+    "pandas",
+    "numpy",
+    "scipy",
+    "umap-learn",
+    "sklearn",
+]
+description-file = "README.org"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",]
+
+[tool.flit.metadata.requires-extra]
+test = [
+    "pytest>=4.4",
+]

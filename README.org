@@ -1,0 +1,35 @@
+* Cellproject
+Cellproject is a python package designed to assist with asymmetric scRNA-Seq data integration. By asymmetric integration we refer to various tasks also known as: cell projection or mapping, which attempt to transfer information from the reference landscape onto new data ('target') without modifying the reference. This includes: transferring cell annotation and fitting new data into the pre-existing PCA or UMAP coordinates. 
+
+Cellproject is based on the scanpy/anndata framework.
+
+* Features 
+- correct/matching data scaling (often overlooked, to see why this matters have a look see notebook ~cellproject_scaling.ipynb~).
+- fitting new data into a pre-existing reference PC or UMAP space
+- easy, nearest-neighbor-based cell annotation transfer
+- nearest-neighbor regression method to fit new data into gene expression (even corrected or regressed values!) or PC space of the reference data
+- a convenient python wrapper for Seurat data integration
+- flexible design allowing asymmetric integration downstream of most (symmetric or asymmetric) batch correction tools
+
+* Usage
+Basic cellproject functionality is covered in the notebook ~cellproject_overview.ipynb~.
+
+If you ever struggled to combined Smart-Seq2 and 10x data or need a practical walk-through have a look at the ~cellproject_use_case.ipynb~ notebook.
+
+* Installation
+Python > 3.7 and pip are required. To install the package:
+
+1. Clone the repository:
+
+    ~git clone https://github.com/Iwo-K/cellproject~
+
+2 Install the package
+
+    ~pip install ./cellproject/~
+
+To use the python wrapper for Seurat batch correction, R installation is required with the following packages:
+- anndata (CRAN)
+- batchelor (Bioconductor)
+- scater (Bioconductor)
+- Seurat (CRAN)
+

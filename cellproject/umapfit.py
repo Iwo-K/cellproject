@@ -30,7 +30,8 @@ def quick_umap(adata,
     -----
     adata: reference anndata object, needs to have 'X_pca' in .obsm and 'neighbors' in
     .uns rep_n_components = 50: specify how many data representation components should
-    be used n_neighbors: Number of neighbors to be considered, default: 10
+    be used n_neighbors: Number of neighbors to be considered, automatically detected
+    from AnnData object
     min_dist: The effective minimum distance between embedded points, default: 0.5
     spread: The effective scale of embedded points. In combination with `min_dist`
         this determines how clustered/clumped the embedded points are. Default: 1.0

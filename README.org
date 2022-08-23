@@ -21,7 +21,7 @@ Python > 3.7 and pip are required. To install the package:
 
 1. Clone the repository:
 
-    ~git clone https://drwintermute@bitbucket.org/gottgenslab/cellproject.git~
+    ~git clone https://github.com/Iwo-K/cellproject~
 
 2 Install the package
 

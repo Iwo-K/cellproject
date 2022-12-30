@@ -153,7 +153,7 @@ def project_cells(target,
                                                       ref_nn,
                                                       ref_labels=x,
                                                       how=categorical_how)
-            elif x.dtype == 'int' or x == 'float':
+            elif x.dtype == 'int' or x.dtype == 'float':
                 target.obs['ref_' + i] = assign_numeric(cross_nn,
                                                         values=x,
                                                         fun=numeric_fun)

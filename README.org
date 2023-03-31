@@ -33,3 +33,6 @@ To use the python wrapper for Seurat batch correction, R installation is require
 - scater (Bioconductor)
 - Seurat (CRAN)
 
+* Release notes
+
+30.03.2023 - fixed a bug in the run_seuratCCA function. Due to an unexpected behaviour of the ~]~ operator in the Seurat package, the output may have been in the incorrect order if input data was not ordered by batch. run_seuratCCA uses now the anndata package for reordering and thus should work as expected.

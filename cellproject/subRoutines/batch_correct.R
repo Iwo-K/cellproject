@@ -39,14 +39,12 @@ run_SeuratCCA = function(infile,
                            features.to.integrate = row.names(seu))
   print(combined)
 
-  #Making sure cell/gene orders are the same
-  combined = combined[row.names(seu), colnames(seu)]
-  #Convertin to AnnData and saving
+  #Convertin to AnnData and saving (also converted to RsparseMatrix)
   x = combined@assays$integrated@data
-  x = AnnData(X = t(x),
+  x = AnnData(X = as(t(x), "RsparseMatrix"),
               obs = combined@meta.data,
-              var = seu@assays$originalexp@meta.features)
+              var = combined@assays$integrated@meta.features)
+  #Reordering to match the input object
+  x = x[colnames(seu),rownames(seu)]$copy()
   x$write_h5ad(outfile, compression = 'lzf')
 }
-
-

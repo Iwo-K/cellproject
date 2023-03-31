@@ -147,14 +147,38 @@ def test_run_seuratCCA(paul15_proc):
 
     adata = paul15_proc.copy()
 
-    adata1 = adata[1:500, :].copy()
-    adata2 = adata[1000:1500, :].copy()
+    # Deliberatel setting groups not in order
+    adata.obs['group'] = "group1"
+    adata.obs.iloc[3:500, adata.obs.columns == 'group'] = "group2"
 
-    comb = adata1.concatenate(adata2, batch_key='batch', batch_categories=['batchA', 'batchB'])
-
-    corrected = cp.run_SeuratCCA(comb,
-                                      batch_key='batch',
-                                      reference='batchA',
+    corrected = cp.run_SeuratCCA(adata,
+                                      batch_key='group',
+                                      reference='group1',
                                       debug = False)
 
+
     assert isinstance(corrected, AnnData)
+
+    # cellnames ana group assignments should match
+    assert (corrected.obs.index == adata.obs.index).all()
+    assert (corrected.obs.group == adata.obs.group).all()
+
+    # The first group should not be corrected and have exactly the same values as original
+    c1 = corrected[corrected.obs.group == 'group1',:]
+    assert (adata[c1.obs.index, :].X == c1.X).all()
+
+    # The second group should be corrected and thus not match
+    c2 = corrected[corrected.obs.group == 'group2',:]
+    assert (adata[c2.obs.index, :].X != c2.X).any()
+
+    # Running with the data  ordered by batch should give the same output
+    inds1 = np.where(adata.obs.group == 'group1')[0]
+    inds2 = np.where(adata.obs.group == 'group2')[0]
+    adata_sorted = adata[np.concatenate((inds1, inds2)), :]
+
+    corrected_sorted = cp.run_SeuratCCA(adata_sorted,
+                                      batch_key='group',
+                                      reference='group1',
+                                      debug = False)
+
+    assert (corrected_sorted[corrected.obs.index, :].X != corrected.X).nnz == 0
